@@ -28,15 +28,38 @@ galleryRef.addEventListener("click", (event) => {
 
   const imgModal = basicLightbox.create(`<img src="${originalImgUrl}">`, {
     onShow: (imgModal) => {
-      document.onkeydown = function (event) {
+      window.addEventListener("keydown", closeImgModal);
+
+      function closeImgModal(event) {
         const isEscape = event.code === "Escape";
 
         if (isEscape) {
+          window.removeEventListener("keydown", closeImgModal);
           imgModal.close();
         }
-      };
+      }
     },
   });
 
   imgModal.show();
 });
+
+// galleryRef.addEventListener("click", (event) => {
+//   event.preventDefault();
+
+//   const originalImgUrl = event.target.dataset.source;
+
+//   const imgModal = basicLightbox.create(`<img src="${originalImgUrl}">`, {
+//     onShow: (imgModal) => {
+//       document.onkeydown = function (event) {
+//         const isEscape = event.code === "Escape";
+
+//         if (isEscape) {
+//           imgModal.close();
+//         }
+//       };
+//     },
+//   });
+
+//   imgModal.show();
+// });
